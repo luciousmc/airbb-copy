@@ -1,14 +1,20 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import Banner from '../components/Banner';
+import Header from '../components/Header';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="">
       <Head>
         <title>Marlon's Bed n Bath</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Lets build airBNB</h1>
+      {/* HEADER */}
+      <Header />
+
+      {/* BANNER */}
+      <Banner />
     </div>
   )
 }
