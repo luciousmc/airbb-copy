@@ -30,7 +30,7 @@ function Header() {
 
   return (
     <header ref={headerRef} className={`fixed w-full top-0 z-50 grid grid-cols-3 bg-trasparent p-5 md:px-10 ${fillHeader ? 'bg-white transition duration-200 shadow-md ease-in-out' : ''}`}>
-      <div className='relative flex items-center h-10 cursor-pointer text-pink'>
+      <div className='relative flex items-center h-10 cursor-pointer text-gray-800'>
         {/* <Image
           src='https://links.papareact.com/qd3'
           alt='Logo'
@@ -53,12 +53,12 @@ function Header() {
 
       {/* Right Section */}
       <div className='flex space-x-4 items-center justify-end'>
-        <p className='hidden md:inline text-gray-300'>Become a host</p>
-        <GlobeAltIcon className='h-6 text-gray-300' />
+        <p className={`hidden md:inline ${fillHeader ? 'text-gray-500' : 'text-gray-300'}`}>Become a host</p>
+        <GlobeAltIcon className={`h-6 ${fillHeader ? 'text-gray-500' : 'text-gray-300'}`} />
 
-        <div className='flex items-center space-x-2 border-2 p-2 rounded-full bg-gray-200'>
-          <MenuIcon className='h-5 text-gray-600' />
-          <UserCircleIcon className='h-6 text-gray-600' />
+        <div className={`flex items-center space-x-2 border p-2 rounded-full bg-gray-100 ${fillHeader ? 'border-gray-300' : 'border-transparent'}`}>
+          <MenuIcon className='h-5 text-gray-500' />
+          <UserCircleIcon className='h-6 text-gray-500' />
         </div>
       </div>
     </header>
