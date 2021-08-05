@@ -81,7 +81,7 @@ function Header() {
         </div> */}
 
         <div className='grid grid-cols-4 divide-x-2 items-center bg-white rounded-full'>
-          <div className='pl-6 py-3 hover:bg-gray-300 rounded-full cursor-pointer'>
+          <div className='pl-6 py-3 hover:bg-gray-100 rounded-full cursor-pointer'>
             <h3 className='text-xs font-bold'>Location</h3>
             <input
               className='outline-none text-sm text-gray-100 focus:text-gray-800 placeholder-gray-400 bg-transparent w-3/4 trunc'

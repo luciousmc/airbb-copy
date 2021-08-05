@@ -22,6 +22,6 @@
     @apply transition duration-500;
   }
   .header__link:not(.active):hover::after {
-    @apply transform scale-x-75;
+    @apply transform scale-x-[10%];
   }
 }
