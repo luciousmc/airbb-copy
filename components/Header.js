@@ -29,7 +29,7 @@ function Header() {
   },[]);
 
   return (
-    <header ref={headerRef} className={`fixed w-full top-0 z-50 grid grid-cols-6 bg-trasparent p-5 md:px-10 ${fillHeader ? 'bg-white transition duration-200 shadow-md ease-in-out' : ''}`}>
+    <header ref={headerRef} className={`fixed w-full top-0 z-50 grid grid-cols-6 bg-trasparent p-5 md:px-10 ${fillHeader ? 'bg-white transition ease-in-out duration-500 shadow-md' : 'transition duration-500'}`}>
       <div className='relative hidden md:flex items-center h-10 cursor-pointer text-gray-800 col-start-1 col-end-2'>
         {/* <Image
           src='https://links.papareact.com/qd3'
@@ -63,7 +63,7 @@ function Header() {
           <SearchIcon className='hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2' />
         </div>
 
-      <div className={`${fillHeader ? 'opacity-0 transform -translate-y-6 transition duration-300 ease-in-out' : ''} hidden md:block absolute top-24 lg:top-8 left-[50%] transform -translate-x-1/2 w-[90%] md:w-[85%] lg:w-2/3 max-w-4xl`}>
+      <div className={`${fillHeader ? 'opacity-0 w-0 transform -translate-y-6 transition duration-300 ease-in-out' : 'transition duration-300'} hidden md:block absolute top-24 lg:top-8 left-[50%] transform -translate-x-1/2 w-[90%] md:w-[85%] lg:w-2/3 max-w-4xl`}>
 
         <div className='flex items-center justify-center gap-x-8 text-gray-200 mb-8'>
           <h2 className='header__link active'>Places to stay</h2>
