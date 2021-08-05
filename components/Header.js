@@ -40,10 +40,10 @@ function Header() {
         /> */}
         <Logo color={fillHeader ? 'text-pink-500' : 'text-white'} />
       </div>
-      {/* Mid Section */}
 
-      <div className='absolute top-24 left-[50%] transform -translate-x-1/2 w-[90%] lg:w-2/3 max-w-4xl'>
-        <div className='flex items-center justify-center gap-x-6 col-start-2 col-end-6 text-gray-200 mb-8 font-semibold'>
+      {/* Mid Section */}
+      <div className='absolute top-24 left-[50%] transform -translate-x-1/2 w-[90%] md:w-3/4 lg:w-2/3 max-w-4xl'>
+        <div className='flex items-center justify-center gap-x-8 text-gray-200 mb-8 font-semibold'>
           <h2 className='header__link active'>Places to stay</h2>
           <h2 className='header__link'>Experiences</h2>
           <h2 className='header__link'>Online Experiences</h2>
@@ -58,27 +58,27 @@ function Header() {
           <SearchIcon className='hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2' />
         </div> */}
 
-        <div className='grid grid-cols-4 items-center bg-white rounded-full'>
-          <div className='px-4'>
+        <div className='grid grid-cols-4 divide-x-2 items-center bg-white rounded-full'>
+          <div className='pl-6 py-3 hover:bg-gray-300 rounded-full cursor-pointer'>
             <h3 className='text-xs font-bold'>Location</h3>
             <input
-              className='outline-none text-sm text-gray-600 placeholder-gray-400 trunc'
+              className='outline-none text-sm text-gray-100 focus:text-gray-800 placeholder-gray-400 bg-transparent w-3/4 trunc'
               type="text"
               placeholder='Where are you going?'
             />
           </div>
 
-          <div className='px-4'>
+          <div className='flex flex-col pl-6 justify-center hover:bg-gray-100 rounded-full cursor-pointer h-full'>
             <h3 className='text-xs font-bold'>Check in</h3>
             <p className='text-sm text-gray-600'>Add dates</p>
           </div>
           
-          <div className='px-4'>
+          <div className='flex flex-col pl-6 justify-center hover:bg-gray-100 rounded-full cursor-pointer h-full'>
             <h3 className='text-xs font-bold'>Check out</h3>
             <p className='text-sm text-gray-600'>Add dates</p>
           </div>
           
-          <div className='flex items-center pl-4'>
+          <div className='flex items-center pl-6 hover:bg-gray-100 rounded-full cursor-pointer h-full'>
             <div className='flex flex-col flex-grow'>
               <h3 className='text-xs font-bold'>Guests</h3>
               <p className='text-sm text-gray-600'>Add guests</p>

@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+  input::placeholder {
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+  }
   .header__link {
     @apply relative cursor-pointer;
   }
