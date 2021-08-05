@@ -8,7 +8,7 @@
     overflow: hidden !important;
   }
   .header__link {
-    @apply relative cursor-pointer;
+    @apply relative cursor-pointer text-lg;
   }
   .header__link.active::after {
     @apply transform scale-x-[25%];

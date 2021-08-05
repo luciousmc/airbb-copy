@@ -13,7 +13,7 @@ function Header() {
   const handleScroll = () => {
     const { clientHeight } = headerRef.current;
 
-    if (window.pageYOffset > clientHeight) {
+    if (window.pageYOffset > clientHeight / 2) {
       setFillHeader(true);
     } else {
       setFillHeader(false);
@@ -42,8 +42,19 @@ function Header() {
       </div>
 
       {/* Mid Section */}
-      <div className='absolute top-24 left-[50%] transform -translate-x-1/2 w-[90%] md:w-3/4 lg:w-2/3 max-w-4xl'>
-        <div className='flex items-center justify-center gap-x-8 text-gray-200 mb-8 font-semibold'>
+
+      <div className={`${fillHeader ? 'flex' : 'hidden'} z-50 items-center border-2 rounded-full py-2 md:shadow-sm col-start-3 col-end-5 focus-within:shadow-sm`}>
+        <input
+          className='flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
+          type="text"
+          placeholder='Start your search'
+        />
+        <SearchIcon className='hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2' />
+      </div>
+
+      <div className={`${fillHeader ? 'opacity-0 transform -translate-y-6 transition duration-300 ease-in-out' : ''} hidden md:block absolute top-24 lg:top-8 left-[50%] transform -translate-x-1/2 w-[90%] md:w-[85%] lg:w-2/3 max-w-4xl`}>
+
+        <div className='flex items-center justify-center gap-x-8 text-gray-200 mb-8'>
           <h2 className='header__link active'>Places to stay</h2>
           <h2 className='header__link'>Experiences</h2>
           <h2 className='header__link'>Online Experiences</h2>
@@ -91,7 +102,10 @@ function Header() {
 
       {/* Right Section */}
       <div className='flex space-x-4 items-center justify-end col-start-6 col-end-7'>
-        <p className={`hidden md:inline whitespace-nowrap ${fillHeader ? 'text-gray-500' : 'text-gray-300'}`}>Become a host</p>
+        <p className={`hidden md:inline whitespace-nowrap ${fillHeader ? 'text-gray-500' : 'text-gray-300'}`}>
+          Become a host
+        </p>
+
         <GlobeAltIcon className={`h-6 ${fillHeader ? 'text-gray-500' : 'text-gray-300'}`} />
 
         <div className={`flex items-center space-x-2 border p-2 rounded-full bg-gray-100 ${fillHeader ? 'border-gray-300' : 'border-transparent'}`}>
