@@ -63,7 +63,7 @@ function Header() {
           <SearchIcon className='hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2' />
         </div>
 
-      <div className={`${fillHeader ? 'opacity-0 w-0 transform -translate-y-6 transition duration-300 ease-in-out' : 'transition duration-300'} hidden md:block absolute top-24 lg:top-8 left-[50%] transform -translate-x-1/2 w-[90%] md:w-[85%] lg:w-2/3 max-w-4xl`}>
+      <div className={`${fillHeader ? 'opacity-0 w-0 transform -translate-y-10 transition duration-200 ease-in-out' : 'transition duration-300'} hidden md:block absolute top-24 lg:top-8 left-[50%] transform -translate-x-1/2 w-[90%] md:w-[85%] lg:w-2/3 max-w-4xl`}>
 
         <div className='flex items-center justify-center gap-x-8 text-gray-200 mb-8'>
           <h2 className='header__link active'>Places to stay</h2>
