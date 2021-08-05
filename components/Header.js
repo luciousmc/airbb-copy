@@ -1,14 +1,33 @@
 import Image from 'next/image';
-import { SearchIcon } from '@heroicons/react/solid';
+import { SearchIcon, UsersIcon } from '@heroicons/react/solid';
 import { GlobeAltIcon } from '@heroicons/react/solid';
 import { MenuIcon } from '@heroicons/react/solid';
 import { UserCircleIcon } from '@heroicons/react/solid';
 import Logo from './Logo';
 import { useEffect, useRef, useState } from 'react';
+import { DateRangePicker } from 'react-date-range';
+import { useRouter } from 'next/dist/client/router';
 
-function Header() {
+function Header({ placeholder }) {
+  const router = useRouter();
   const headerRef = useRef();
   const [fillHeader, setFillHeader] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [numOfGuests, setNumOfGuests] = useState(1);
+
+
+  const selectionRange = {
+    startDate,
+    endDate,
+    key: 'selection'
+  }
+
+  const handleSelectDate = (ranges) => {
+    setStartDate(ranges.selection.startDate);
+    setEndDate(ranges.selection.endDate);
+  };
 
   const handleScroll = () => {
     const { clientHeight } = headerRef.current;
@@ -28,17 +47,30 @@ function Header() {
     }
   },[]);
 
+  const resetInput = () => {
+    setSearchInput('');
+  };
+
+  const search = () => {
+    router.push({
+      pathname: '/search',
+      query: {
+        location: searchInput,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        numOfGuests
+      }
+    })
+  }
+
   return (
     <header ref={headerRef} className={`fixed w-full top-0 z-50 grid grid-cols-6 bg-trasparent p-5 md:px-10 ${fillHeader ? 'bg-white transition ease-in-out duration-500 shadow-md' : 'transition duration-500'}`}>
       <div className='relative hidden md:flex items-center h-10 cursor-pointer text-gray-800 col-start-1 col-end-2'>
-        {/* <Image
-          src='https://links.papareact.com/qd3'
-          alt='Logo'
-          layout='fill'
-          objectFit='contain'
-          objectPosition='left'
-        /> */}
-        <Logo color={fillHeader ? 'text-pink-500' : 'text-white'} />
+      
+        <Logo
+          color={fillHeader ? 'text-pink-500' : 'text-white'}
+          onClick={() => router.push('/')}
+        />
       </div>
 
       {/* Mid Section */}
@@ -56,9 +88,11 @@ function Header() {
         {/* Normal input */}
         <div className={`${fillHeader ? 'flex md:flex' : 'hidden'} hidden z-50 items-center border-2 rounded-full py-2 bg-gray-100 md:shadow-sm col-start-3 col-end-5 focus-within:shadow-sm `}>
           <input
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             className='flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
             type="text"
-            placeholder='Start your search'
+            placeholder={placeholder || 'Start your search'}
           />
           <SearchIcon className='hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2' />
         </div>
@@ -124,6 +158,37 @@ function Header() {
           <UserCircleIcon className='h-6 text-gray-500' />
         </div>
       </div>
+
+      {searchInput && (
+        <div className='flex flex-col col-span-6 mx-auto mt-5'>
+          <DateRangePicker
+            ranges={[selectionRange]}
+            minDate={new Date()}
+            rangeColors={['#FD5B61']}
+            onChange={handleSelectDate}
+          />
+
+          <div className='flex items-center border-b mb-4'>
+            <h2 className='text-2xl flex-grow font-semibold'>
+              Number of Guests
+            </h2>
+
+            <UsersIcon className='h-5' />
+            <input
+              value={numOfGuests}
+              onChange={(e) => setNumOfGuests(e.target.value)}
+              min={1}
+              type="number"
+              className='w-12 pl-2 text-lg outline-none'
+            />
+          </div>
+
+          <div className='flex'>
+            <button onClick={resetInput} className='flex-grow text-gray-500'>Cancel</button>
+            <button onClick={search} className='flex-grow text-red-400'>Search</button>
+          </div>
+        </div>
+      )}
     </header>
   )
 }

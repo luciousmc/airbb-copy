@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 @layer components {
+
+  /* HEADER COMPONENT */
   input::placeholder {
     text-overflow: ellipsis !important;
     overflow: hidden !important;
@@ -23,5 +25,10 @@
   }
   .header__link:not(.active):hover::after {
     @apply transform scale-x-[10%];
+  }
+
+  /* SEARCH PAGE */
+  .button {
+    @apply px-4 py-2 border rounded-full cursor-pointer hover:shadow-lg active:scale-95 active:bg-gray-100 transition transform duration-100 ease-out;
   }
 }
