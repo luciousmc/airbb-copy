@@ -42,11 +42,11 @@ function Header() {
       </div>
       {/* Mid Section */}
 
-      <div className='absolute top-16 left-[50%] transform -translate-x-1/2 w-[90%] lg:w-2/3 max-w-4xl'>
-        <div className='flex items-center justify-evenly gap-x-4 col-start-2 col-end-6 text-gray-200 pb-5'>
-          <h2>Places to stay</h2>
-          <h2>Experiences</h2>
-          <h2>Online Experiences</h2>
+      <div className='absolute top-24 left-[50%] transform -translate-x-1/2 w-[90%] lg:w-2/3 max-w-4xl'>
+        <div className='flex items-center justify-center gap-x-6 col-start-2 col-end-6 text-gray-200 mb-8 font-semibold'>
+          <h2 className='header__link active'>Places to stay</h2>
+          <h2 className='header__link'>Experiences</h2>
+          <h2 className='header__link'>Online Experiences</h2>
         </div>
         
         {/* <div className='flex items-center md:border-2 rounded-full py-2 md:shadow-sm'>

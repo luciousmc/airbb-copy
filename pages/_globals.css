@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .header__link {
+    @apply relative cursor-pointer;
+  }
+  .header__link.active::after {
+    @apply transform scale-x-[25%];
+  }
+  .header__link:hover {
+    opacity: .8;
+  }
+  .header__link::after {
+    content:'';
+    @apply absolute left-0 top-3 bottom-3 h-full w-full border-b-2 border-gray-200 scale-x-0;
+    @apply transition duration-500;
+  }
+  .header__link:not(.active):hover::after {
+    @apply transform scale-x-75;
+  }
+}
