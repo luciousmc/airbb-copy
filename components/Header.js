@@ -30,7 +30,8 @@ function Header({ placeholder, collapsed }) {
   };
 
   const handleScroll = () => {
-    const { clientHeight } = headerRef?.current;
+    if (!headerRef.current) return;
+    const { clientHeight } = headerRef.current;
 
     if (window.pageYOffset > clientHeight / 2) {
       setFillHeader(true);
@@ -59,6 +60,7 @@ function Header({ placeholder, collapsed }) {
   };
 
   const search = () => {
+    setSearchInput('');
     router.push({
       pathname: '/search',
       query: {
