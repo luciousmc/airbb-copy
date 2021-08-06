@@ -1,8 +1,11 @@
-import { HeartIcon, UserCircleIcon } from '@heroicons/react/outline';
+import { HeartIcon, HomeIcon, UserCircleIcon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
+import { useRouter } from 'next/dist/client/router';
 
 
 function Footer() {
+  const router = useRouter();
+
   return (
     <>
       <footer className='grid grid-cols-1 md:grid-cols-4 gap-y-10 px-32 py-14
@@ -47,19 +50,24 @@ function Footer() {
       {/* Mobile bottom menu */}
       <div className='sticky bottom-0 w-full md:hidden bg-white p-3 border-t border-gray-300'>
         <div className='flex items-center justify-center space-x-20 text-gray-500'>
-          <div className='text-center'>
-            <SearchIcon className='h-7 text-red-500 cursor-pointer' />
-            <p className='text-xs text-gray-800 font-semibold'>Explore</p>
-          </div>
-          
-          <div className='group'>
-            <HeartIcon className='h-7 group-hover:text-red-500 cursor-pointer' />
-            <p className='text-xs group-hover:text-gray-800'>Wishlists</p>
+          <div onClick={() => router.push('/')} className='group flex flex-col items-center'>
+            <HomeIcon className='h-7 group-hover:text-red-500 cursor-pointer' />
+            <p className='text-xs group-hover:text-gray-800 font-semibold'>Home</p>
           </div>
 
-          <div className='group'>
+          <div className='group flex flex-col items-center'>
+            <SearchIcon className='h-7 group-hover:text-red-500 cursor-pointer' />
+            <p className='text-xs group-hover:text-gray-800 font-semibold'>Explore</p>
+          </div>
+          
+          <div className='group flex flex-col items-center'>
+            <HeartIcon className='h-7 group-hover:text-red-500 cursor-pointer' />
+            <p className='text-xs group-hover:text-gray-800 font-semibold'>Wishlists</p>
+          </div>
+
+          <div className='group flex flex-col items-center'>
             <UserCircleIcon className='h-7 group-hover:text-red-500 cursor-pointer' />
-            <p className='text-xs group-hover:text-gray-800'>Log in</p>
+            <p className='text-xs group-hover:text-gray-800 font-semibold'>Log in</p>
           </div>
         </div>
       </div>
