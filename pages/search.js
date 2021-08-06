@@ -2,9 +2,10 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useRouter } from "next/dist/client/router";
 import { format } from "date-fns/esm";
+import InfoCard from "../components/InfoCard";
 
 
-function Search() {
+function Search({ searchResults }) {
   const router = useRouter();
   
   const { startDate, endDate, location, numOfGuests } = router.query;
@@ -15,10 +16,8 @@ function Search() {
 
   return (
     <div>
-      {/* <Header placeholder={`${location} | ${range} | ${numOfGuests}`} /> */}
+      <Header placeholder={`${location} | ${range} | ${numOfGuests}`} collapsed />
       
-      <h1 className='cursor-pointer' onClick={() => router.push('/')}>Temp BAck Button</h1>
-
       <main className='flex'>
         <section className='flex-grow pt-14 px-6'>
           <p className='text-xs'>300+ Stays {range} for {numOfGuests} guests</p>
@@ -34,6 +33,21 @@ function Search() {
             <p className="button">Rooms and Beds</p>
             <p className="button">More..</p>
           </div>
+
+          <div className=" flex-col">
+            {searchResults?.map(({ img, location, title, description, star, price, total }) => (
+              <InfoCard
+                key={img}
+                img={img}
+                location={location}
+                title={title}
+                description={description}
+                star={star}
+                price={price}
+                total={total}
+              />
+            ))}
+          </div>
         </section>
       </main>
 
@@ -43,3 +57,14 @@ function Search() {
 }
 
 export default Search;
+
+export const getServerSideProps = async (context) => {
+  let searchResults = await fetch('https://links.papareact.com/isz');
+  searchResults = await searchResults.json();
+
+  return {
+    props: {
+      searchResults
+    }
+  }
+};

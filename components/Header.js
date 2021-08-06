@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { DateRangePicker } from 'react-date-range';
 import { useRouter } from 'next/dist/client/router';
 
-function Header({ placeholder }) {
+function Header({ placeholder, collapsed }) {
   const router = useRouter();
   const headerRef = useRef();
   const [fillHeader, setFillHeader] = useState(false);
@@ -30,7 +30,7 @@ function Header({ placeholder }) {
   };
 
   const handleScroll = () => {
-    const { clientHeight } = headerRef.current;
+    const { clientHeight } = headerRef?.current;
 
     if (window.pageYOffset > clientHeight / 2) {
       setFillHeader(true);
@@ -40,10 +40,17 @@ function Header({ placeholder }) {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
+    if (collapsed) {   
+      setFillHeader(true);
+    } else {
+      document.onload = handleScroll();
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      }
     }
   },[]);
 
@@ -64,20 +71,22 @@ function Header({ placeholder }) {
   }
 
   return (
-    <header ref={headerRef} className={`fixed w-full top-0 z-50 grid grid-cols-6 bg-trasparent p-5 md:px-10 ${fillHeader ? 'bg-white transition ease-in-out duration-500 shadow-md' : 'transition duration-500'}`}>
-      <div className='relative hidden md:flex items-center h-10 cursor-pointer text-gray-800 col-start-1 col-end-2'>
-      
-        <Logo
-          color={fillHeader ? 'text-pink-500' : 'text-white'}
-          onClick={() => router.push('/')}
+    <header ref={headerRef} className={`${collapsed ? 'sticky' : 'fixed'} w-full top-0 z-50 grid grid-cols-6 bg-trasparent p-5 md:px-10 ${fillHeader ? 'bg-white transition ease-in-out duration-500 shadow-md' : 'transition duration-500'}`}>
+      <div
+        className='relative hidden md:flex items-center h-10 cursor-pointer text-gray-800 col-start-1 col-end-2'
+        onClick={() => router.push('/')}
+      >
+        <Logo color={fillHeader ? 'text-pink-500' : 'text-white'}
         />
-      </div>
+    </div>
 
       {/* Mid Section */}
 
         {/* Small input */}
         <div className={`flex z-50 items-center border-2 rounded-full bg-gray-100 md:hidden col-start-1 col-end-7 focus-within:shadow-sm `}>
           <input
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             className='flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-700 focus:placeholder-transparent w-full text-center'
             type="text"
             placeholder='Where are you going?'
