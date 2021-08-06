@@ -58,6 +58,11 @@ function Header({ placeholder, collapsed }) {
     setSearchInput('');
   };
 
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+    setFillHeader(true);
+  };
+
   const search = () => {
     setSearchInput('');
     router.push({
@@ -87,7 +92,7 @@ function Header({ placeholder, collapsed }) {
         <div className={`flex z-50 items-center border-2 rounded-full bg-gray-100 md:hidden col-start-1 col-end-7 focus-within:shadow-sm `}>
           <input
             value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={handleInputChange}
             className='flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-700 focus:placeholder-transparent w-full text-center'
             type="text"
             placeholder='Where are you going?'
@@ -99,7 +104,7 @@ function Header({ placeholder, collapsed }) {
         <div className={`${fillHeader ? 'flex md:flex' : 'hidden'} hidden z-50 items-center border-2 rounded-full py-2 bg-gray-100 md:shadow-sm col-start-3 col-end-5 focus-within:shadow-sm `}>
           <input
             value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={handleInputChange}
             className='flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
             type="text"
             placeholder={placeholder || 'Start your search'}
@@ -170,12 +175,13 @@ function Header({ placeholder, collapsed }) {
       </div>
 
       {searchInput && (
-        <div className='flex flex-col col-span-6 mx-auto mt-5'>
+        <div className='flex flex-col col-span-6 mx-auto mt-5 p-10 rounded-xl'>
           <DateRangePicker
             ranges={[selectionRange]}
             minDate={new Date()}
             rangeColors={['#FD5B61']}
             onChange={handleSelectDate}
+            className='calpicker'
           />
 
           <div className='flex items-center border-b mb-4'>
