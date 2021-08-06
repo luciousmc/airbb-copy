@@ -56,12 +56,22 @@ function Header({ placeholder, collapsed }) {
 
   const resetInput = () => {
     setSearchInput('');
+    
+    if (collapsed) return;
+
+    setFillHeader(false);
   };
 
   const handleInputChange = (e) => {
     setSearchInput(e.target.value);
     setFillHeader(true);
   };
+
+  const triggerCalPicker = () => {
+    setSearchInput(' ');
+    setFillHeader(true);
+    document.getElementById('mainInput').focus();
+  }
 
   const search = () => {
     setSearchInput('');
@@ -103,6 +113,7 @@ function Header({ placeholder, collapsed }) {
         {/* Normal input */}
         <div className={`${fillHeader ? 'flex md:flex' : 'hidden'} hidden z-50 items-center border-2 rounded-full py-2 bg-gray-100 md:shadow-sm col-start-3 col-end-5 focus-within:shadow-sm `}>
           <input
+            id='mainInput'
             value={searchInput}
             onChange={handleInputChange}
             className='flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
@@ -120,16 +131,7 @@ function Header({ placeholder, collapsed }) {
           <h2 className='header__link'>Online Experiences</h2>
         </div>
         
-        {/* <div className='flex items-center md:border-2 rounded-full py-2 md:shadow-sm'>
-          <input
-            className='flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
-            type="text"
-            placeholder='Start your search'
-          />
-          <SearchIcon className='hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2' />
-        </div> */}
-
-        <div className='grid grid-cols-4 divide-x-2 items-center bg-white rounded-full'>
+        <div onClick={triggerCalPicker} className='grid grid-cols-4 divide-x-2 items-center bg-white rounded-full'>
           <div className='pl-6 py-3 hover:bg-gray-100 rounded-full cursor-pointer'>
             <h3 className='text-xs font-bold'>Location</h3>
             <input
