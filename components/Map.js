@@ -17,9 +17,9 @@ function Map({ searchResults }) {
       latitude: result.lat
     }
   });
-
-  console.log(coords)
   
+  const center = getCenter()
+
   return (
     <ReactMapGL
       mapStyle='mapbox://styles/luciousmc/cks0ijw2654xv17t6yxxbp5eu'
