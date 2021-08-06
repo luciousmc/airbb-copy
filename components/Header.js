@@ -95,7 +95,7 @@ function Header({ placeholder, collapsed }) {
             onChange={handleInputChange}
             className='flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-700 focus:placeholder-transparent w-full text-center'
             type="text"
-            placeholder='Where are you going?'
+            placeholder={placeholder || 'Where are you going?'}
           />
           <SearchIcon className='h-10 bg-red-400 text-white rounded-full p-2 cursor-pointer' />
         </div>
