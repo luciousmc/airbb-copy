@@ -111,7 +111,7 @@ function Header({ placeholder, collapsed }) {
         </div>
 
         {/* Normal input */}
-        <div className={`${fillHeader ? 'flex md:flex' : 'hidden'} hidden z-50 items-center border-2 rounded-full py-2 bg-gray-100 md:shadow-sm col-start-3 col-end-5 focus-within:shadow-sm `}>
+        <div className={`${fillHeader ? 'flex md:flex' : 'hidden'} hidden z-40 items-center border-2 rounded-full py-2 bg-gray-100 md:shadow-sm col-start-3 col-end-5 focus-within:shadow-sm `}>
           <input
             id='mainInput'
             value={searchInput}
