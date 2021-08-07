@@ -177,7 +177,7 @@ function Header({ placeholder, collapsed }) {
       </div>
 
       {searchInput && (
-        <div className='flex flex-col col-span-6 mx-auto mt-5 p-10 rounded-xl'>
+        <div className='flex flex-col col-span-6 mx-auto mt-5 p-5 rounded-xl shadow'>
           <DateRangePicker
             ranges={[selectionRange]}
             minDate={new Date()}
@@ -191,19 +191,40 @@ function Header({ placeholder, collapsed }) {
               Number of Guests
             </h2>
 
-            <UsersIcon className='h-5' />
-            <input
-              value={numOfGuests}
-              onChange={(e) => setNumOfGuests(e.target.value)}
-              min={1}
-              type="number"
-              className='w-12 pl-2 text-lg outline-none'
-            />
+            <button className='outline-none border-2 border-gray-500 w-8 text-lg font-extrabold'>
+              -
+            </button>
+            <div class='flex items-center bg-gray-100 px-5'>
+
+              <input
+                value={numOfGuests}
+                onChange={(e) => setNumOfGuests(e.target.value)}
+                min={1}
+                type="number"
+                className='w-5 text-lg outline-none bg-gray-100 numInput'
+              />
+              {/* <UsersIcon className='h-5' /> */}
+
+            </div>
+            <div className='w-9 font-bold text-center ml-2 text-2xl rounded-full border-2'>
+              +
+            </div>
           </div>
 
-          <div className='flex'>
-            <button onClick={resetInput} className='flex-grow text-gray-500'>Cancel</button>
-            <button onClick={search} className='flex-grow text-red-400'>Search</button>
+          <div className='flex gap-4'>
+            <button
+              onClick={resetInput}
+              className='flex-grow text-white bg-gray-500 py-2 px-4 rounded-lg opacity-90 hover:opacity-100 shadow-sm hover:shadow-md'
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={search}
+              className='flex-grow text-white py-2 px-4 bg-red-400 rounded-lg opacity-90 hover:opacity-100 shadow-sm hover:shadow-md'
+            >
+              Search
+            </button>
           </div>
         </div>
       )}
