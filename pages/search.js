@@ -10,6 +10,7 @@ function Search({ searchResults }) {
   const router = useRouter();
   
   const { startDate, endDate, location, numOfGuests } = router.query;
+  console.log(startDate.timestamp)
 
   const formattedStartDate = format(new Date(startDate), 'dd MMMM yy');
   const formattedEndDate = format(new Date(endDate), 'dd MMMM yy');
