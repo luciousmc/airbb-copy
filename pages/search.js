@@ -10,6 +10,7 @@ function Search({ searchResults }) {
   const router = useRouter();
   
   const { startDate, endDate, location, numOfGuests } = router.query;
+  console.log(startDate.timestamp)
 
   const formattedStartDate = format(new Date(startDate), 'dd MMMM yy');
   const formattedEndDate = format(new Date(endDate), 'dd MMMM yy');
@@ -51,7 +52,7 @@ function Search({ searchResults }) {
           </div>
         </section>
 
-        <section className='hidden xl:inline-flex xl:min-w-[600px]'>
+        <section className='hidden md:inline-flex xl:min-w-[600px]'>
           <Map searchResults={searchResults} />
         </section>
       </main>
