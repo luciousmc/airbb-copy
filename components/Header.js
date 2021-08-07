@@ -56,6 +56,7 @@ function Header({ placeholder, collapsed }) {
 
   const resetInput = () => {
     setSearchInput('');
+    setNumOfGuests(1);
     
     if (collapsed) return;
 
@@ -75,6 +76,7 @@ function Header({ placeholder, collapsed }) {
 
   const search = () => {
     setSearchInput('');
+    setNumOfGuests(1);
     router.push({
       pathname: '/search',
       query: {
