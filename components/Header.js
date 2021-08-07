@@ -177,7 +177,7 @@ function Header({ placeholder, collapsed }) {
       </div>
 
       {searchInput && (
-        <div className='flex flex-col col-span-6 mx-auto mt-5 p-10 rounded-xl'>
+        <div className='flex flex-col col-span-6 mx-auto mt-5 p-5 rounded-xl shadow'>
           <DateRangePicker
             ranges={[selectionRange]}
             minDate={new Date()}
@@ -187,23 +187,44 @@ function Header({ placeholder, collapsed }) {
           />
 
           <div className='flex items-center border-b mb-4'>
-            <h2 className='text-2xl flex-grow font-semibold'>
+            <h2 className='text-2xl flex items-center flex-grow font-semibold'>
               Number of Guests
+              <UsersIcon className='h-5 ml-3' />
             </h2>
 
-            <UsersIcon className='h-5' />
-            <input
-              value={numOfGuests}
-              onChange={(e) => setNumOfGuests(e.target.value)}
-              min={1}
-              type="number"
-              className='w-12 pl-2 text-lg outline-none'
-            />
+            <div class='flex items-center bg-gray-100 shadow-sm rounded-md'>
+              <button onClick={() => setNumOfGuests(numOfGuests - 1)} className='guestAmtBtn'>
+                -
+              </button>
+
+              <input
+                value={numOfGuests}
+                onChange={(e) => setNumOfGuests(e.target.value)}
+                min={1}
+                type="number"
+                className='w-5 text-lg outline-none text-gray-500 bg-gray-100 numInput ml-3 mr-2'
+              />
+
+              <button onClick={() => setNumOfGuests(numOfGuests + 1)} className='guestAmtBtn'>
+                +
+              </button>
+            </div>
           </div>
 
-          <div className='flex'>
-            <button onClick={resetInput} className='flex-grow text-gray-500'>Cancel</button>
-            <button onClick={search} className='flex-grow text-red-400'>Search</button>
+          <div className='flex gap-4'>
+            <button
+              onClick={resetInput}
+              className='flex-grow text-white bg-gray-500 py-2 px-4 rounded-lg opacity-90 hover:opacity-100 shadow-sm hover:shadow-md'
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={search}
+              className='flex-grow text-white py-2 px-4 bg-red-400 rounded-lg opacity-90 hover:opacity-100 shadow-sm hover:shadow-md'
+            >
+              Search
+            </button>
           </div>
         </div>
       )}
