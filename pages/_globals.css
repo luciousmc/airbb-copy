@@ -26,6 +26,9 @@
   .header__link:not(.active):hover::after {
     @apply transform scale-x-[10%];
   }
+  .guestAmtBtn {
+    @apply outline-none border border-gray-400 rounded-lg w-10 text-lg font-extrabold text-gray-500 bg-white;
+  }
 
   /* Date Range Picker */
   .calpicker .rdrDefinedRangesWrapper {

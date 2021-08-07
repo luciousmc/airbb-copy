@@ -187,27 +187,27 @@ function Header({ placeholder, collapsed }) {
           />
 
           <div className='flex items-center border-b mb-4'>
-            <h2 className='text-2xl flex-grow font-semibold'>
+            <h2 className='text-2xl flex items-center flex-grow font-semibold'>
               Number of Guests
+              <UsersIcon className='h-5 ml-3' />
             </h2>
 
-            <button className='outline-none border-2 border-gray-500 w-8 text-lg font-extrabold'>
-              -
-            </button>
-            <div class='flex items-center bg-gray-100 px-5'>
+            <div class='flex items-center bg-gray-100 shadow-sm rounded-md'>
+              <button onClick={() => setNumOfGuests(numOfGuests - 1)} className='guestAmtBtn'>
+                -
+              </button>
 
               <input
                 value={numOfGuests}
                 onChange={(e) => setNumOfGuests(e.target.value)}
                 min={1}
                 type="number"
-                className='w-5 text-lg outline-none bg-gray-100 numInput'
+                className='w-5 text-lg outline-none text-gray-500 bg-gray-100 numInput ml-3 mr-2'
               />
-              {/* <UsersIcon className='h-5' /> */}
 
-            </div>
-            <div className='w-9 font-bold text-center ml-2 text-2xl rounded-full border-2'>
-              +
+              <button onClick={() => setNumOfGuests(numOfGuests + 1)} className='guestAmtBtn'>
+                +
+              </button>
             </div>
           </div>
 
