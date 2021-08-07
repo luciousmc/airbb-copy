@@ -4,6 +4,8 @@ import { useRouter } from "next/dist/client/router";
 import { format } from "date-fns";
 import InfoCard from "../components/InfoCard";
 import Map from '../components/Map';
+import { StarIcon } from "@heroicons/react/solid";
+import { StarIcon as StarIconOutline } from '@heroicons/react/outline';
 
 
 function Search({ searchResults }) {
@@ -12,17 +14,33 @@ function Search({ searchResults }) {
   const { startDate, endDate, location, numOfGuests } = router.query;
   console.log(startDate.timestamp)
 
-  const formattedStartDate = format(new Date(startDate), 'dd MMMM yy');
-  const formattedEndDate = format(new Date(endDate), 'dd MMMM yy');
+  const formattedStartDate = format(new Date(startDate), 'MMMM dd, yyyy');
+  const formattedEndDate = format(new Date(endDate), 'MMMM dd, yyyy');
   const range = `${formattedStartDate} - ${formattedEndDate}`;
+
+  const starRating = (rating) => {
+    let star = parseInt(rating);
+    const output = [];
+
+    for (let i = 0; i < 5; i++) {
+      if (star <= 0) {
+        star -= 1;
+        output.push(<StarIconOutline className='h-5 text-gray-600' />);
+      } else {
+        star -= 1;
+        output.push(<StarIcon className='h-5 text-red-400' />);
+      }
+    }
+    return output;
+  }
 
   return (
     <div>
       <Header placeholder={`${location} | ${range} | ${numOfGuests}`} collapsed />
       
-      <main className='flex max-w-7xl mx-auto'>
+      <main className='flex md:max-w-4xl xl:max-w-7xl mx-auto'>
         <section className='flex-grow pt-14 px-6'>
-          <p className='text-xs'>300+ Stays {range} for {numOfGuests} guests</p>
+          <p className='text-sm'>300+ Stays: <span class='bg-gray-100'>{range}</span> for {numOfGuests} guests</p>
 
           <h1 className='text-3xl font-semibold mt-2 mb-6'>
             Stays in {location}
@@ -47,13 +65,14 @@ function Search({ searchResults }) {
                 star={star}
                 price={price}
                 total={total}
+                rating={starRating}
               />
             ))}
           </div>
         </section>
 
-        <section className='hidden md:inline-flex xl:min-w-[600px]'>
-          <Map searchResults={searchResults} />
+        <section className='hidden xl:inline-flex xl:min-w-[600px]'>
+          <Map rating={starRating} searchResults={searchResults} />
         </section>
       </main>
 

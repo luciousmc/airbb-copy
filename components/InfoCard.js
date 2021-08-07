@@ -1,8 +1,9 @@
 import { HeartIcon } from "@heroicons/react/outline";
 import { StarIcon } from "@heroicons/react/solid";
+import { StarIcon as StarIconOutline } from '@heroicons/react/outline';
 import Image from "next/image";
 
-function InfoCard({ img, location, title, description, star, price, total }) {
+function InfoCard({ img, location, title, description, star, price, total, rating }) {
   return (
     <div className='flex flex-col sm:flex-row py-7 px-2 border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t'>
       <div className='relative h-52 w-80 mx-auto mb-3 sm:h-24 sm:w-40 md:h-52 md:w-80 flex-shrink-0'>
@@ -29,8 +30,8 @@ function InfoCard({ img, location, title, description, star, price, total }) {
 
         <div className='flex justify-between pt-5'>
           <p className='flex items-center'>
-            <StarIcon className='h-5 text-red-400' />
             {Math.floor(star)}
+            {rating(Math.floor(star))}
           </p>
 
           <div>

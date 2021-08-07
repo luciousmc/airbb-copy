@@ -2,10 +2,8 @@ import { useState } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import getCenter from 'geolib/es/getCenter';
 import Image from 'next/image';
-import { LocationMarkerIcon, StarIcon } from '@heroicons/react/solid';
-import { StarIcon as StarIconOutline } from '@heroicons/react/outline';
 
-function Map({ searchResults }) {
+function Map({ searchResults, rating }) {
   const coords = searchResults.map(result => {
     return {
       longitude: result.long,
@@ -24,24 +22,8 @@ function Map({ searchResults }) {
   });
   const [selectedLocation, setSelectedLocation] = useState({});
 
-  const stars = (rating) => {
-    let star = parseInt(rating);
-    const output = [];
-
-    for (let i = 0; i < 5; i++) {
-      if (star <= 0) {
-        star -= 1;
-        output.push(<StarIconOutline className='h-5 text-gray-600' />);
-      } else {
-        star -= 1;
-        output.push(<StarIcon className='h-5 text-red-400' />);
-      }
-    }
-    return output;
-  }
-
   return (
-    <ReactMapGL
+    <ReactMapGL 
       mapStyle='mapbox://styles/luciousmc/cks0ijw2654xv17t6yxxbp5eu'
       mapboxApiAccessToken={process.env.mapbox_key}
       {...viewport}
@@ -76,11 +58,12 @@ function Map({ searchResults }) {
               className='z-40'
             >
                 <div>
-                  <div className="relative w-64 h-44">
+                  <div className="relative w-full h-44">
                     <Image
                       src={result.img}
                       layout='fill'
                       objectFit='cover'
+                      className='rounded-sm'
                     />
                   </div>
                   <h2 className='font-semibold pt-2'>{result.title}</h2>
@@ -88,7 +71,7 @@ function Map({ searchResults }) {
 
                   <div className="flex items-center pt-4">
                     <p className='w-3'>{Math.floor(result.star)}</p>
-                    {stars(Math.floor(result.star))}
+                    {rating(Math.floor(result.star))}
                   </div>
                 </div>
             </Popup>
