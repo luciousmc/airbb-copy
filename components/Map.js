@@ -63,15 +63,22 @@ function Map({ searchResults, rating }) {
                       src={result.img}
                       layout='fill'
                       objectFit='cover'
-                      className='rounded-sm'
+                      className='rounded-t-lg'
                     />
+                    <h3 className='absolute bottom-0 right-0 font-semibold text-white text-sm px-3 py-1 bg-gray-700'>
+                      {result.price}
+                    </h3>
                   </div>
-                  <h2 className='font-semibold pt-2'>{result.title}</h2>
-                  <p className='text-sm font-light'>{result.location}</p>
 
-                  <div className="flex items-center pt-4">
-                    <p className='w-3'>{Math.floor(result.star)}</p>
-                    {rating(Math.floor(result.star))}
+                  <div className='border-b py-2 w-10 border-gray-400 mx-auto' />
+
+                  <div className='px-3 pb-3'>
+                    <h2 className='font-semibold pt-2'>{result.title}</h2>
+                    <p className='text-sm font-light'>{result.location}</p>
+                    <div className="flex items-center pt-4">
+                      <p className='w-3'>{Math.floor(result.star)}</p>
+                      {rating(Math.floor(result.star))}
+                    </div>
                   </div>
                 </div>
             </Popup>
