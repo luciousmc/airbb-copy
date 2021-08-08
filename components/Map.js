@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import getCenter from 'geolib/es/getCenter';
 import Image from 'next/image';
 
-function Map({ searchResults, rating }) {
+function Map({ searchResults, rating, viewLocation }) {
+
+  console.log('viewLocation:', viewLocation)
+
   const coords = searchResults.map(result => {
     return {
       longitude: result.long,
@@ -21,6 +24,13 @@ function Map({ searchResults, rating }) {
     zoom: 11
   });
   const [selectedLocation, setSelectedLocation] = useState({});
+
+  console.log('selectedLocation:', selectedLocation)
+
+  useEffect(() => {
+
+    setSelectedLocation(viewLocation);
+  }, [viewLocation]);
 
   return (
     <ReactMapGL 
@@ -43,16 +53,17 @@ function Map({ searchResults, rating }) {
               className='cursor-pointer text-2xl animate-bounce'
             >
               {/* <LocationMarkerIcon classsName='h-8 text-red-400' /> */}
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-</svg>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-9 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+              </svg>
             </p>
           </Marker>
 
           {selectedLocation.long === result.long ? (
             <Popup
               onClose={() => setSelectedLocation({})}
-              closeOnclick={true}
+              closeOnclick={false}
+              closeButton={true}
               latitude={result.lat}
               longitude={result.long}
               className='z-40'
@@ -78,6 +89,14 @@ function Map({ searchResults, rating }) {
                     <div className="flex items-center pt-4">
                       <p className='w-3'>{Math.floor(result.star)}</p>
                       {rating(Math.floor(result.star))}
+                      <div className='relative ml-auto hover:opacity-90'>
+                        <Image
+                          src='/get-directions-button.svg'
+                          width={24}
+                          height={24}
+                          className='cursor-pointer'
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

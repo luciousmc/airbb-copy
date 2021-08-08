@@ -474,6 +474,7 @@ a.mapboxgl-ctrl-logo.mapboxgl-compact {
 }
 .mapboxgl-popup-close-button {
   position: absolute;
+  display: none;
   right: 0;
   top: 0;
   border: 0;

@@ -1,7 +1,7 @@
 module.exports = {
   images: {
     domains: [
-      'links.papareact.com'
+      'links.papareact.com', 'localhost'
     ]
   },
   env: {

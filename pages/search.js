@@ -6,13 +6,15 @@ import InfoCard from "../components/InfoCard";
 import Map from '../components/Map';
 import { StarIcon } from "@heroicons/react/solid";
 import { StarIcon as StarIconOutline } from '@heroicons/react/outline';
+import { useState } from "react";
 
 
 function Search({ searchResults }) {
+  console.log('searchREsults:', searchResults);
   const router = useRouter();
+  const [viewLocation, setViewLocation] = useState({});
   
   const { startDate, endDate, location, numOfGuests } = router.query;
-  console.log(startDate.timestamp)
 
   const formattedStartDate = format(new Date(startDate), 'MMMM dd, yyyy');
   const formattedEndDate = format(new Date(endDate), 'MMMM dd, yyyy');
@@ -21,14 +23,15 @@ function Search({ searchResults }) {
   const starRating = (rating) => {
     let star = parseInt(rating);
     const output = [];
-
+    
     for (let i = 0; i < 5; i++) {
+      const uid = Math.floor(Math.random() * 100000);
       if (star <= 0) {
         star -= 1;
-        output.push(<StarIconOutline className='h-5 text-gray-600' />);
+        output.push(<StarIconOutline key={uid} className='h-4 text-gray-600' />);
       } else {
         star -= 1;
-        output.push(<StarIcon className='h-5 text-red-400' />);
+        output.push(<StarIcon key={uid} className='h-5 text-red-400' />);
       }
     }
     return output;
@@ -40,7 +43,7 @@ function Search({ searchResults }) {
       
       <main className='flex md:max-w-4xl xl:max-w-7xl mx-auto'>
         <section className='flex-grow pt-14 px-6'>
-          <p className='text-sm'>300+ Stays: <span class='bg-gray-100'>{range}</span> for {numOfGuests} guests</p>
+          <p className='text-sm'>300+ Stays: <span className='bg-gray-100'>{range}</span> for {numOfGuests} guests</p>
 
           <h1 className='text-3xl font-semibold mt-2 mb-6'>
             Stays in {location}
@@ -55,7 +58,7 @@ function Search({ searchResults }) {
           </div>
 
           <div className=" flex-col">
-            {searchResults && searchResults.map(({ img, location, title, description, star, price, total }) => (
+            {searchResults && searchResults.map(({ img, location, title, lat, long, description, star, price, total }) => (
               <InfoCard
                 key={img}
                 img={img}
@@ -65,14 +68,18 @@ function Search({ searchResults }) {
                 star={star}
                 price={price}
                 total={total}
+                lat={lat}
+                long={long}
                 rating={starRating}
+                // onClick={() => setViewLocation({ img, location, title, description, star, price, total })}
+                setViewLocation={setViewLocation}
               />
             ))}
           </div>
         </section>
 
         <section className='hidden xl:inline-flex xl:min-w-[600px]'>
-          <Map rating={starRating} searchResults={searchResults} />
+          <Map rating={starRating} searchResults={searchResults} viewLocation={viewLocation} />
         </section>
       </main>
 
