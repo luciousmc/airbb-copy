@@ -4,16 +4,19 @@ import { useRouter } from "next/dist/client/router";
 import { format } from "date-fns";
 import InfoCard from "../components/InfoCard";
 import Map from '../components/Map';
-import { StarIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon, StarIcon } from "@heroicons/react/solid";
 import { StarIcon as StarIconOutline } from '@heroicons/react/outline';
 import { useState } from "react";
 
 
 function Search({ searchResults }) {
   const router = useRouter();
-  const [viewLocation, setViewLocation] = useState({});
-  
   const { startDate, endDate, location, numOfGuests } = router.query;
+
+  const [viewLocation, setViewLocation] = useState({});
+
+  const [showFilterMenu, setShowFilterMenu] = useState(false);
+  const [filterValue, setFilterValue] = useState('Select Filter');
 
   const formattedStartDate = format(new Date(startDate), 'MMMM dd, yyyy');
   const formattedEndDate = format(new Date(endDate), 'MMMM dd, yyyy');
@@ -48,12 +51,31 @@ function Search({ searchResults }) {
             Stays in {location}
           </h1>
 
-          <div className='hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap'>
-            <p className='button'>Cancellation Flexibility</p>
-            <p className="button">Type of Place</p>
-            <p className="button">Price</p>
-            <p className="button">Rooms and Beds</p>
-            <p className="button">More..</p>
+          <div className='relative flex items-center mb-4'>
+            <p className='mr-4'>Filter Results:</p>
+
+            <div
+              className="relative shadow-md rounded-lg"
+              onClick={() => setShowFilterMenu(state => !state)}
+            >
+              <p className='bg-gray-100 p-2 rounded-lg text-sm cursor-pointer w-56'>
+                {filterValue}
+              </p>
+              
+              <ChevronDownIcon className='absolute right-2 h-7 bg-gray-100 top-1 cursor-pointer' />
+
+              <ul
+                onClick={(e) => setFilterValue(e.target.innerText)}
+                className={`${showFilterMenu ? 'h-44 transition-all duration-200' : 'h-0 duration-200'} absolute overflow-hidden top-8 z-50 bg-gray-100 rounded-b-lg shadow-md text-sm w-full`}
+              >
+                <li className='filterItem pt-5'>Price: Lowest to Highest</li>
+                <li className='filterItem'>Number of Beds</li>
+                <li className='filterItem'>Type of Place</li>
+                <li className='filterItem'>Wifi Availability</li>
+                <li className='filterItem'>Free Parking</li>
+              </ul>
+            </div>
+
           </div>
 
           <div className=" flex-col">

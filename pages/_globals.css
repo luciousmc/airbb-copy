@@ -48,4 +48,7 @@
   .button {
     @apply px-4 py-2 border rounded-full cursor-pointer hover:shadow-lg active:scale-95 active:bg-gray-100 transition transform duration-100 ease-out;
   }
+  .filterItem {
+    @apply text-xs hover:opacity-80 hover:bg-gray-200 cursor-pointer px-3 py-2;
+  }
 }
