@@ -10,7 +10,6 @@ import { useState } from "react";
 
 
 function Search({ searchResults }) {
-  console.log('searchREsults:', searchResults);
   const router = useRouter();
   const [viewLocation, setViewLocation] = useState({});
   
@@ -41,7 +40,7 @@ function Search({ searchResults }) {
     <div>
       <Header placeholder={`${location} | ${range} | ${numOfGuests}`} collapsed />
       
-      <main className='flex md:max-w-4xl xl:max-w-7xl mx-auto'>
+      <main className='flex md:max-w-5xl xl:max-w-full mx-auto'>
         <section className='flex-grow pt-14 px-6'>
           <p className='text-sm'>300+ Stays: <span className='bg-gray-100'>{range}</span> for {numOfGuests} guests</p>
 
@@ -71,7 +70,6 @@ function Search({ searchResults }) {
                 lat={lat}
                 long={long}
                 rating={starRating}
-                // onClick={() => setViewLocation({ img, location, title, description, star, price, total })}
                 setViewLocation={setViewLocation}
               />
             ))}

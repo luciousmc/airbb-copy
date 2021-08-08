@@ -5,8 +5,6 @@ import Image from 'next/image';
 
 function Map({ searchResults, rating, viewLocation }) {
 
-  console.log('viewLocation:', viewLocation)
-
   const coords = searchResults.map(result => {
     return {
       longitude: result.long,
@@ -24,8 +22,6 @@ function Map({ searchResults, rating, viewLocation }) {
     zoom: 11
   });
   const [selectedLocation, setSelectedLocation] = useState({});
-
-  console.log('selectedLocation:', selectedLocation)
 
   useEffect(() => {
 
