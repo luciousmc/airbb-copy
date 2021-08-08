@@ -8,7 +8,6 @@ import { ChevronDownIcon, RefreshIcon, StarIcon } from "@heroicons/react/solid";
 import { StarIcon as StarIconOutline } from '@heroicons/react/outline';
 import { useState } from "react";
 
-
 function Search({ searchResults }) {
   const router = useRouter();
   const { startDate, endDate, location, numOfGuests } = router.query;
@@ -40,8 +39,6 @@ function Search({ searchResults }) {
   }
 
   const showFilteredResults = (filter) => {
-    console.log(searchResults[1].description)
-    
     const output = [];
     switch(filter) {
       case 'Select Filter':
@@ -158,7 +155,6 @@ function Search({ searchResults }) {
                 />
               ))}
             </div>
-
           ) : (
             <div className="flex-col">
               {showFilteredResults(filterValue)}
