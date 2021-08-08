@@ -125,7 +125,7 @@ function Header({ placeholder, collapsed }) {
           <SearchIcon className='hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2' />
         </div>
 
-      <div className={`${fillHeader ? 'opacity-0 w-0 transform -translate-y-10 transition duration-200 ease-in-out' : 'transition duration-300'} hidden md:block absolute top-24 lg:top-8 left-[50%] transform -translate-x-1/2 w-[90%] md:w-[85%] lg:w-2/3 max-w-4xl`}>
+      <div className={`${fillHeader ? 'pointer-events-none opacity-0 w-0 transform -translate-y-10 transition duration-200 ease-in-out' : 'transition duration-300'} hidden md:block absolute top-24 lg:top-8 left-[50%] transform -translate-x-1/2 w-[90%] md:w-[85%] lg:w-2/3 max-w-4xl`}>
 
         <div className='flex items-center justify-center gap-x-8 text-gray-200 mb-8'>
           <h2 className='header__link active'>Places to stay</h2>
@@ -194,7 +194,7 @@ function Header({ placeholder, collapsed }) {
               <UsersIcon className='h-5 ml-3' />
             </h2>
 
-            <div class='flex items-center bg-gray-100 shadow-sm rounded-md'>
+            <div className='flex items-center bg-gray-100 shadow-sm rounded-md'>
               <button onClick={() => setNumOfGuests(numOfGuests - 1)} className='guestAmtBtn'>
                 -
               </button>

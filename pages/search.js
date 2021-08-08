@@ -4,7 +4,7 @@ import { useRouter } from "next/dist/client/router";
 import { format } from "date-fns";
 import InfoCard from "../components/InfoCard";
 import Map from '../components/Map';
-import { ChevronDownIcon, StarIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon, RefreshIcon, StarIcon } from "@heroicons/react/solid";
 import { StarIcon as StarIconOutline } from '@heroicons/react/outline';
 import { useState } from "react";
 
@@ -39,6 +39,63 @@ function Search({ searchResults }) {
     return output;
   }
 
+  const showFilteredResults = (filter) => {
+    console.log(searchResults[1].description)
+    
+    const output = [];
+    switch(filter) {
+      case 'Select Filter':
+        return searchResults;
+      case 'Price: Lowest to Highest':
+        const priceFilter = searchResults.sort((first, second) => {
+            return first.price.substr(1, 2) - second.price.substr(1, 2);
+          });
+        
+        output.push(...priceFilter);
+      break;
+      case 'Number of Guests':
+        const guestFilter = searchResults.filter(result => {
+          return result.description.substr(0, 1) >= numOfGuests;
+        });
+
+        output.push(...guestFilter);
+      break;
+      case 'Wifi Availability':
+        const wifiFilter = searchResults.filter(result => {
+           return result.description.includes('Wifi')
+        });
+
+        output.push(...wifiFilter);
+      break;
+      case 'Free Parking':
+        const parkingFilter = searchResults.filter(result => {
+          return result.description.includes('parking')
+       });
+
+        output.push(...parkingFilter);
+      break;
+      default:
+        return 'OOps you didn\'t send a proper stirng. The Coder is at fault.';
+    }
+
+    return output.map(({ img, location, title, lat, long, description, star, price, total }) => (
+      <InfoCard
+        key={img}
+        img={img}
+        location={location}
+        title={title}
+        description={description}
+        star={star}
+        price={price}
+        total={total}
+        lat={lat}
+        long={long}
+        rating={starRating}
+        setViewLocation={setViewLocation}
+      />
+    ))
+  }
+
   return (
     <div>
       <Header placeholder={`${location} | ${range} | ${numOfGuests}`} collapsed />
@@ -64,38 +121,49 @@ function Search({ searchResults }) {
               
               <ChevronDownIcon className='absolute right-2 h-7 bg-gray-100 top-1 cursor-pointer' />
 
+
               <ul
                 onClick={(e) => setFilterValue(e.target.innerText)}
                 className={`${showFilterMenu ? 'h-44 transition-all duration-200' : 'h-0 duration-200'} absolute overflow-hidden top-8 z-50 bg-gray-100 rounded-b-lg shadow-md text-sm w-full`}
               >
                 <li className='filterItem pt-5'>Price: Lowest to Highest</li>
-                <li className='filterItem'>Number of Beds</li>
-                <li className='filterItem'>Type of Place</li>
+                <li className='filterItem'>Number of Guests</li>
                 <li className='filterItem'>Wifi Availability</li>
                 <li className='filterItem'>Free Parking</li>
               </ul>
             </div>
 
+            <RefreshIcon
+              onClick={() => setFilterValue('Select Filter')}
+              className='h-7 cursor-pointer ml-4 text-gray-700 hover:text-gray-400'
+            />
           </div>
 
-          <div className=" flex-col">
-            {searchResults && searchResults.map(({ img, location, title, lat, long, description, star, price, total }) => (
-              <InfoCard
-                key={img}
-                img={img}
-                location={location}
-                title={title}
-                description={description}
-                star={star}
-                price={price}
-                total={total}
-                lat={lat}
-                long={long}
-                rating={starRating}
-                setViewLocation={setViewLocation}
-              />
-            ))}
-          </div>
+          {filterValue === 'Select Filter' ? (
+            <div className=" flex-col">
+              {searchResults && searchResults.map(({ img, location, title, lat, long, description, star, price, total }) => (
+                <InfoCard
+                  key={img}
+                  img={img}
+                  location={location}
+                  title={title}
+                  description={description}
+                  star={star}
+                  price={price}
+                  total={total}
+                  lat={lat}
+                  long={long}
+                  rating={starRating}
+                  setViewLocation={setViewLocation}
+                />
+              ))}
+            </div>
+
+          ) : (
+            <div className="flex-col">
+              {showFilteredResults(filterValue)}
+            </div>
+          )}
         </section>
 
         <section className='hidden xl:inline-flex xl:min-w-[600px]'>
