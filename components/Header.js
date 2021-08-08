@@ -191,7 +191,7 @@ function Header({ placeholder, collapsed }) {
           <div className='flex items-center border-b mb-4'>
             <h2 className='text-2xl flex items-center flex-grow font-semibold'>
               Number of Guests
-              <UsersIcon className='h-5 ml-3' />
+              <UsersIcon className='hidden sm:block h-5 ml-3' />
             </h2>
 
             <div className='flex items-center bg-gray-100 shadow-sm rounded-md'>
