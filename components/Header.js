@@ -170,7 +170,7 @@ function Header({ placeholder, collapsed }) {
           Become a host
         </p>
 
-        <GlobeAltIcon className={`h-6 ${fillHeader ? 'text-gray-500' : 'text-gray-300'}`} />
+        <GlobeAltIcon className={`${fillHeader ? 'text-gray-500' : 'text-gray-300'} h-7`} />
 
         <div className={`flex items-center space-x-2 border p-2 rounded-full bg-gray-100 ${fillHeader ? 'border-gray-300' : 'border-transparent'}`}>
           <MenuIcon className='h-5 text-gray-500' />

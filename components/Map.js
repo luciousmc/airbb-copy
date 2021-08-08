@@ -19,7 +19,7 @@ function Map({ searchResults, rating, viewLocation }) {
     height: '100%',
     latitude: center.latitude,
     longitude: center.longitude,
-    zoom: 11
+    zoom: 10
   });
   const [selectedLocation, setSelectedLocation] = useState({});
 

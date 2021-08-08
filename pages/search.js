@@ -59,7 +59,7 @@ function Search({ searchResults }) {
       break;
       case 'Wifi Availability':
         const wifiFilter = searchResults.filter(result => {
-           return result.description.includes('Wifi')
+          return result.description.includes('Wifi')
         });
 
         output.push(...wifiFilter);
@@ -67,7 +67,7 @@ function Search({ searchResults }) {
       case 'Free Parking':
         const parkingFilter = searchResults.filter(result => {
           return result.description.includes('parking')
-       });
+      });
 
         output.push(...parkingFilter);
       break;
@@ -97,7 +97,7 @@ function Search({ searchResults }) {
     <div>
       <Header placeholder={`${location} | ${range} | ${numOfGuests}`} collapsed />
       
-      <main className='flex md:max-w-5xl xl:max-w-full mx-auto'>
+      <main className='flex justify-center md:max-w-5xl xl:max-w-full'>
         <section className='pt-14 px-6'>
           <p className='text-sm'>300+ Stays: <span className='bg-gray-100'>{range}</span> for {numOfGuests} guests</p>
 
@@ -121,7 +121,7 @@ function Search({ searchResults }) {
 
               <ul
                 onClick={(e) => setFilterValue(e.target.innerText)}
-                className={`${showFilterMenu ? 'h-44 transition-all duration-200' : 'h-0 duration-200'} absolute overflow-hidden top-8 z-50 bg-gray-100 rounded-b-lg shadow-md text-sm w-full`}
+                className={`${showFilterMenu ? 'h-36 transition-all duration-200' : 'h-0 duration-200'} absolute overflow-hidden top-8 z-50 bg-gray-100 rounded-b-lg shadow-md text-sm w-full`}
               >
                 <li className='filterItem pt-5'>Price: Lowest to Highest</li>
                 <li className='filterItem'>Number of Guests</li>
@@ -136,33 +136,35 @@ function Search({ searchResults }) {
             />
           </div>
 
-          {filterValue === 'Select Filter' ? (
-            <div className=" flex-col">
-              {searchResults && searchResults.map(({ img, location, title, lat, long, description, star, price, total }) => (
-                <InfoCard
-                  key={img}
-                  img={img}
-                  location={location}
-                  title={title}
-                  description={description}
-                  star={star}
-                  price={price}
-                  total={total}
-                  lat={lat}
-                  long={long}
-                  rating={starRating}
-                  setViewLocation={setViewLocation}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="flex-col">
-              {showFilteredResults(filterValue)}
-            </div>
-          )}
+          <div className='overflow-y-scroll h-[680px] scrollbar-hide shadow-md'>
+            {filterValue === 'Select Filter' ? (
+              <div className=" flex-col">
+                {searchResults && searchResults.map(({ img, location, title, lat, long, description, star, price, total }) => (
+                  <InfoCard
+                    key={img}
+                    img={img}
+                    location={location}
+                    title={title}
+                    description={description}
+                    star={star}
+                    price={price}
+                    total={total}
+                    lat={lat}
+                    long={long}
+                    rating={starRating}
+                    setViewLocation={setViewLocation}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="flex-col">
+                {showFilteredResults(filterValue)}
+              </div>
+            )}
+          </div>
         </section>
 
-        <section className='hidden xl:inline-flex xl:min-w-[600px]'>
+        <section className='hidden h-screen xl:inline-flex xl:min-w-[600px]'>
           <Map rating={starRating} searchResults={searchResults} viewLocation={viewLocation} />
         </section>
       </main>
