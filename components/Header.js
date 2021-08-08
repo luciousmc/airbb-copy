@@ -101,7 +101,7 @@ function Header({ placeholder, collapsed }) {
       {/* Mid Section */}
 
         {/* Small input */}
-        <div className={`flex z-50 items-center border-2 rounded-full bg-gray-100 md:hidden col-start-1 col-end-7 focus-within:shadow-sm `}>
+        <div className={`flex flex-grow z-50 items-center border-2 rounded-full bg-gray-100 md:hidden col-start-1 col-end-7 focus-within:shadow-sm `}>
           <input
             value={searchInput}
             onChange={handleInputChange}
@@ -165,7 +165,7 @@ function Header({ placeholder, collapsed }) {
       </div>
 
       {/* Right Section */}
-      <div className='hidden md:flex space-x-4 items-center justify-end col-start-6 col-end-7'>
+      <div className='hidden md:flex space-x-4 items-center justify-end col-start-5 col-end-7'>
         <p className={`hidden md:inline whitespace-nowrap ${fillHeader ? 'text-gray-500' : 'text-gray-300'}`}>
           Become a host
         </p>
