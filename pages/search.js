@@ -41,7 +41,7 @@ function Search({ searchResults }) {
       <Header placeholder={`${location} | ${range} | ${numOfGuests}`} collapsed />
       
       <main className='flex md:max-w-5xl xl:max-w-full mx-auto'>
-        <section className='flex-grow pt-14 px-6'>
+        <section className='pt-14 px-6'>
           <p className='text-sm'>300+ Stays: <span className='bg-gray-100'>{range}</span> for {numOfGuests} guests</p>
 
           <h1 className='text-3xl font-semibold mt-2 mb-6'>

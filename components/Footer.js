@@ -48,8 +48,8 @@ function Footer() {
       </footer>
 
       {/* Mobile bottom menu */}
-      <div className='sticky bottom-0 w-full md:hidden bg-white p-3 border-t border-gray-300'>
-        <div className='flex items-center justify-center space-x-8 sm:space-x-12 text-gray-500'>
+      <div className='sticky bottom-0 w-full md:hidden bg-white p-3 px-16 sm:px-28 border-t border-gray-300'>
+        <div className='flex items-center justify-between text-gray-500'>
           <div onClick={() => router.push('/')} className='group flex flex-col items-center'>
             <HomeIcon className='h-7 group-hover:text-red-500 cursor-pointer' />
             <p className='text-xs group-hover:text-gray-800 font-semibold'>Home</p>
