@@ -26,4 +26,4 @@ function LargeCard({ img, title, description, buttonText }) {
   )
 }
 
-export default LargeCard
+export default LargeCard;

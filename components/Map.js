@@ -4,7 +4,7 @@ import getCenter from 'geolib/es/getCenter';
 import Image from 'next/image';
 
 function Map({ searchResults, rating, viewLocation }) {
-
+  // Get coordinates from search results
   const coords = searchResults.map(result => {
     return {
       longitude: result.long,
@@ -12,8 +12,10 @@ function Map({ searchResults, rating, viewLocation }) {
     }
   });
   
+  // Use coordinates from results to get center location for mapbox
   const center = getCenter(coords);
 
+  // State for mapbox info
   const [viewport, setViewport] = useState({
     width: '100%',
     height: '100%',
@@ -21,10 +23,12 @@ function Map({ searchResults, rating, viewLocation }) {
     longitude: center.longitude,
     zoom: 10
   });
+
+  // State for displaying location popup on map
   const [selectedLocation, setSelectedLocation] = useState({});
 
+  // Check for any location being sent in via props. Set location on map.
   useEffect(() => {
-
     setSelectedLocation(viewLocation);
   }, [viewLocation]);
 
@@ -48,13 +52,13 @@ function Map({ searchResults, rating, viewLocation }) {
               onClick={() => setSelectedLocation(result)}
               className='cursor-pointer text-2xl animate-bounce'
             >
-              {/* <LocationMarkerIcon classsName='h-8 text-red-400' /> */}
               <svg xmlns="http://www.w3.org/2000/svg" className="h-9 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
               </svg>
             </p>
           </Marker>
 
+          {/* Display popup on map for selected location */}
           {selectedLocation.long === result.long ? (
             <Popup
               onClose={() => setSelectedLocation({})}
@@ -84,7 +88,7 @@ function Map({ searchResults, rating, viewLocation }) {
                     <p className='text-sm font-light'>{result.location}</p>
                     <div className="flex items-center pt-4">
                       <p className='w-3'>{Math.floor(result.star)}</p>
-                      {rating(Math.floor(result.star))}
+                      {rating(parseInt(result.star))}
                       <div className='relative ml-auto hover:opacity-90'>
                         <Image
                           src='/get-directions-button.svg'
@@ -98,7 +102,7 @@ function Map({ searchResults, rating, viewLocation }) {
                 </div>
             </Popup>
           ) : (
-            false
+            null
           )}
         </div>
       ))}

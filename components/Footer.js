@@ -2,7 +2,6 @@ import { HeartIcon, HomeIcon, UserCircleIcon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/dist/client/router';
 
-
 function Footer() {
   const router = useRouter();
 
@@ -75,4 +74,4 @@ function Footer() {
   )
 }
 
-export default Footer
+export default Footer;

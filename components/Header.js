@@ -8,26 +8,35 @@ import { DateRangePicker } from 'react-date-range';
 import { useRouter } from 'next/dist/client/router';
 
 function Header({ placeholder, collapsed }) {
+  // Import router for navigation
   const router = useRouter();
+
+  // Reference hearder element for scroll visibility
   const headerRef = useRef();
+
+  // State to determine whether header is fulled or not
   const [fillHeader, setFillHeader] = useState(false);
+
+  // State for controlled search input
   const [searchInput, setSearchInput] = useState('');
+
+  // State for storing data for date range picker.
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [numOfGuests, setNumOfGuests] = useState(1);
-
-
   const selectionRange = {
     startDate,
     endDate,
     key: 'selection'
   }
 
+  // Updates startDate and endDate based on user selection
   const handleSelectDate = (ranges) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
   };
 
+  // Fills header component when page is scrolled past half of the header height
   const handleScroll = () => {
     if (!headerRef.current) return;
     const { clientHeight } = headerRef.current;
@@ -39,13 +48,12 @@ function Header({ placeholder, collapsed }) {
     }
   };
 
+  // Check if header component is set to collapsed. If true fill header component
   useEffect(() => {
-
     if (collapsed) {   
       setFillHeader(true);
     } else {
       document.onload = handleScroll();
-  
       window.addEventListener('scroll', handleScroll);
   
       return () => {
@@ -54,26 +62,29 @@ function Header({ placeholder, collapsed }) {
     }
   },[]);
 
+  // Resets data
   const resetInput = () => {
     setSearchInput('');
     setNumOfGuests(1);
     
     if (collapsed) return;
-
     setFillHeader(false);
   };
 
+  // Handles controlled search input
   const handleInputChange = (e) => {
     setSearchInput(e.target.value);
     setFillHeader(true);
   };
 
+  // Opens the date range picker
   const triggerCalPicker = () => {
     setSearchInput(' ');
     setFillHeader(true);
     document.getElementById('mainInput').focus();
   }
 
+  // Submits data from range picker to the search page.
   const search = () => {
     setSearchInput('');
     setNumOfGuests(1);
@@ -99,7 +110,6 @@ function Header({ placeholder, collapsed }) {
     </div>
 
       {/* Mid Section */}
-
         {/* Small input */}
         <div className={`flex flex-grow z-50 items-center border-2 rounded-full bg-gray-100 md:hidden col-start-1 col-end-7 focus-within:shadow-sm `}>
           <input
@@ -125,7 +135,7 @@ function Header({ placeholder, collapsed }) {
           <SearchIcon className='hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2' />
         </div>
 
-      <div className={`${fillHeader ? 'pointer-events-none opacity-0 w-0 transform -translate-y-10 transition duration-200 ease-in-out' : 'transition duration-300'} hidden md:block absolute top-24 lg:top-8 left-[50%] transform -translate-x-1/2 w-[90%] md:w-[85%] lg:w-2/3 max-w-4xl`}>
+        <div className={`${fillHeader ? 'pointer-events-none opacity-0 w-0 transform -translate-y-10 transition duration-200 ease-in-out' : 'transition duration-300'} hidden md:block absolute top-24 lg:top-8 left-[50%] transform -translate-x-1/2 w-[90%] md:w-[85%] lg:w-2/3 max-w-4xl`}>
 
         <div className='flex items-center justify-center gap-x-8 text-gray-200 mb-8'>
           <h2 className='header__link active'>Places to stay</h2>
@@ -161,7 +171,6 @@ function Header({ placeholder, collapsed }) {
             <SearchIcon className='hidden md:inline-flex h-12 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2' />
           </div>
         </div>
-
       </div>
 
       {/* Right Section */}

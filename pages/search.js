@@ -9,20 +9,27 @@ import { StarIcon as StarIconOutline } from '@heroicons/react/outline';
 import { useState } from "react";
 
 function Search({ searchResults }) {
+  const DEFAULT_FILTER_VALUE = 'Select Filter';
+  
+  // Get information from query string
   const router = useRouter();
   const { startDate, endDate, location, numOfGuests } = router.query;
 
+  // State for mapbox view location
   const [viewLocation, setViewLocation] = useState({});
 
-  const [showFilterMenu, setShowFilterMenu] = useState(false);
-  const [filterValue, setFilterValue] = useState('Select Filter');
-
+  //  Datepicker info
   const formattedStartDate = format(new Date(startDate), 'MMMM dd, yyyy');
   const formattedEndDate = format(new Date(endDate), 'MMMM dd, yyyy');
   const range = `${formattedStartDate} - ${formattedEndDate}`;
 
+  // State for filter menu search results
+  const [showFilterMenu, setShowFilterMenu] = useState(false);
+  const [filterValue, setFilterValue] = useState(DEFAULT_FILTER_VALUE);
+
+  // Convert integer 1 to 5 to 5 star rating, rounded down.
   const starRating = (rating) => {
-    let star = parseInt(rating);
+    let star = Math.floor((rating));
     const output = [];
     
     for (let i = 0; i < 5; i++) {
@@ -38,10 +45,11 @@ function Search({ searchResults }) {
     return output;
   }
 
+  // Filter search results by category
   const showFilteredResults = (filter) => {
     const output = [];
     switch(filter) {
-      case 'Select Filter':
+      case DEFAULT_FILTER_VALUE:
         return searchResults;
       case 'Price: Lowest to Highest':
         const priceFilter = searchResults.sort((first, second) => {
@@ -118,7 +126,6 @@ function Search({ searchResults }) {
               
               <ChevronDownIcon className='absolute right-2 h-7 bg-gray-100 top-1 cursor-pointer' />
 
-
               <ul
                 onClick={(e) => setFilterValue(e.target.innerText)}
                 className={`${showFilterMenu ? 'h-36 transition-all duration-200' : 'h-0 duration-200'} absolute overflow-hidden top-8 z-50 bg-gray-100 rounded-b-lg shadow-md text-sm w-full`}
@@ -131,13 +138,13 @@ function Search({ searchResults }) {
             </div>
 
             <RefreshIcon
-              onClick={() => setFilterValue('Select Filter')}
+              onClick={() => setFilterValue(DEFAULT_FILTER_VALUE)}
               className='h-7 cursor-pointer ml-4 text-gray-700 hover:text-gray-400'
             />
           </div>
 
           <div className='overflow-y-scroll h-[680px] scrollbar-hide shadow-md'>
-            {filterValue === 'Select Filter' ? (
+            {filterValue === DEFAULT_FILTER_VALUE ? (
               <div className=" flex-col">
                 {searchResults && searchResults.map(({ img, location, title, lat, long, description, star, price, total }) => (
                   <InfoCard
@@ -176,9 +183,9 @@ function Search({ searchResults }) {
 
 export default Search;
 
-export const getServerSideProps = async (context) => {
-  const res = await fetch('https://links.papareact.com/isz');
-  const searchResults = await res.json();
+export const getServerSideProps = async () => {
+  let searchResults = await fetch('https://links.papareact.com/isz');
+  searchResults = await searchResults.json();
 
   return {
     props: {

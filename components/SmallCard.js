@@ -22,4 +22,4 @@ function SmallCard({ img, location, distance }) {
   )
 }
 
-export default SmallCard
+export default SmallCard;
