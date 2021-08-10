@@ -9,7 +9,12 @@ import { StarIcon as StarIconOutline } from '@heroicons/react/outline';
 import { useState } from "react";
 
 function Search({ searchResults }) {
-  const DEFAULT_FILTER_VALUE = 'Select Filter';
+  // Filter values
+  const FILTER_DEFAULT = 'Select Filter';
+  const FILTER_LOW_TO_HIGH = 'Price: Lowest to Highest';
+  const FILTER_NUM_OF_GUESTS = 'Number of Guests';
+  const FILTER_WIFI = 'Wifi Availability';
+  const FILTER_FREE_PARKING = 'Free Parking'
   
   // Get information from query string
   const router = useRouter();
@@ -25,7 +30,7 @@ function Search({ searchResults }) {
 
   // State for filter menu search results
   const [showFilterMenu, setShowFilterMenu] = useState(false);
-  const [filterValue, setFilterValue] = useState(DEFAULT_FILTER_VALUE);
+  const [filterValue, setFilterValue] = useState(FILTER_DEFAULT);
 
   // Convert integer 1 to 5 to 5 star rating, rounded down.
   const starRating = (rating) => {
@@ -49,30 +54,30 @@ function Search({ searchResults }) {
   const showFilteredResults = (filter) => {
     const output = [];
     switch(filter) {
-      case DEFAULT_FILTER_VALUE:
+      case FILTER_DEFAULT:
         return searchResults;
-      case 'Price: Lowest to Highest':
+      case FILTER_LOW_TO_HIGH:
         const priceFilter = searchResults.sort((first, second) => {
             return first.price.substr(1, 2) - second.price.substr(1, 2);
           });
         
         output.push(...priceFilter);
       break;
-      case 'Number of Guests':
+      case FILTER_NUM_OF_GUESTS:
         const guestFilter = searchResults.filter(result => {
           return result.description.substr(0, 1) >= numOfGuests;
         });
 
         output.push(...guestFilter);
       break;
-      case 'Wifi Availability':
+      case FILTER_WIFI:
         const wifiFilter = searchResults.filter(result => {
           return result.description.includes('Wifi')
         });
 
         output.push(...wifiFilter);
       break;
-      case 'Free Parking':
+      case FILTER_FREE_PARKING:
         const parkingFilter = searchResults.filter(result => {
           return result.description.includes('parking')
       });
@@ -128,23 +133,24 @@ function Search({ searchResults }) {
 
               <ul
                 onClick={(e) => setFilterValue(e.target.innerText)}
-                className={`${showFilterMenu ? 'h-36 transition-all duration-200' : 'h-0 duration-200'} absolute overflow-hidden top-8 z-50 bg-gray-100 rounded-b-lg shadow-md text-sm w-full`}
+                className={`${showFilterMenu ? 'h-36 transition-all duration-200' : 'h-0 duration-200'} absolute overflow-hidden
+                top-8 z-50 bg-gray-100 rounded-b-lg shadow-md text-sm w-full`}
               >
-                <li className='filterItem pt-5'>Price: Lowest to Highest</li>
-                <li className='filterItem'>Number of Guests</li>
-                <li className='filterItem'>Wifi Availability</li>
-                <li className='filterItem'>Free Parking</li>
+                <li className='filterItem pt-5'>{FILTER_LOW_TO_HIGH}</li>
+                <li className='filterItem'>{FILTER_NUM_OF_GUESTS}</li>
+                <li className='filterItem'>{FILTER_WIFI}</li>
+                <li className='filterItem'>{FILTER_FREE_PARKING}</li>
               </ul>
             </div>
 
             <RefreshIcon
-              onClick={() => setFilterValue(DEFAULT_FILTER_VALUE)}
+              onClick={() => setFilterValue(FILTER_DEFAULT)}
               className='h-7 cursor-pointer ml-4 text-gray-700 hover:text-gray-400'
             />
           </div>
 
           <div className='overflow-y-scroll h-[680px] scrollbar-hide shadow-md'>
-            {filterValue === DEFAULT_FILTER_VALUE ? (
+            {filterValue === FILTER_DEFAULT ? (
               <div className=" flex-col">
                 {searchResults && searchResults.map(({ img, location, title, lat, long, description, star, price, total }) => (
                   <InfoCard
