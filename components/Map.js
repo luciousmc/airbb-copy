@@ -91,7 +91,7 @@ function Map({ searchResults, rating, viewLocation }) {
                       {rating(parseInt(result.star))}
                       <div className='relative ml-auto hover:opacity-90'>
                         <Image
-                          src='/get-directions-button.svg'
+                          src='/images/get-directions-button.svg'
                           width={24}
                           height={24}
                           className='cursor-pointer'
