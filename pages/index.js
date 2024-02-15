@@ -8,10 +8,10 @@ import SmallCard from '../components/SmallCard';
 
 export default function Home({ exploreData, cardsData }) {
   return (
-    <div className="">
+    <div className=''>
       <Head>
         <title>Marlon's Bed n Breakfast</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <Header />
@@ -39,11 +39,7 @@ export default function Home({ exploreData, cardsData }) {
 
           <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3'>
             {cardsData?.map(({ img, title }) => (
-              <MediumCard
-                key={img}
-                title={title}
-                img={img}
-              />
+              <MediumCard key={img} title={title} img={img} />
             ))}
           </div>
         </section>
@@ -58,20 +54,20 @@ export default function Home({ exploreData, cardsData }) {
 
       <Footer />
     </div>
-  )
+  );
 }
 
 export const getStaticProps = async () => {
-  let exploreData = await fetch('https://links.papareact.com/pyp');
+  let exploreData = await fetch('https://www.jsonkeeper.com/b/4G1G');
   exploreData = await exploreData.json();
 
-  let cardsData = await fetch('https://links.papareact.com/zp1');
+  let cardsData = await fetch('https://www.jsonkeeper.com/b/VHHT');
   cardsData = await cardsData.json();
 
   return {
     props: {
       exploreData,
-      cardsData
-    }
-  }
-}
+      cardsData,
+    },
+  };
+};
